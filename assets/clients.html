@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Клиенты</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, shrink-to-fit=no, viewport-fit=cover">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="format-detection" content="address=no">
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+	<link rel="shortcut icon" type="image/x-icon" href="img/favicon.svg">
+    <link rel="stylesheet" href="css/libs.css">
+    <link rel="stylesheet" href="css/index.css">
+</head>
+<body>
+    <div class="page">
+
+		<div class="page-lock"></div>
+
+		<div class="page-closed img-contain">
+			<img src="img/icons/close-menu.svg" alt="">
+		</div>
+
+		<aside class="aside">
+			<a href="#" class="logo">F<span>aceradar</span></a>
+			<div class="menu">
+				<ul>
+					<li>
+						<a href="#">
+							<img src="img/aside/icon-1.svg" alt="">
+							<span>Главная</span>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<img src="img/aside/icon-2.svg" alt="">
+							<span>Поиск</span>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<img src="img/aside/icon-3.svg" alt="">
+							<span>Клиенты</span>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<img src="img/aside/icon-4.svg" alt="">
+							<span>Гости</span>
+						</a>
+					</li>
+					<li>
+						<a href="#">
+							<img src="img/aside/icon-5.svg" alt="">
+							<span>Интеграции</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</aside>
+
+		<div class="page-body">
+
+			<header class="header  ">
+	<div class="header__burger img-contain">
+		<img src="img/icons/burger.svg" alt="">
+	</div>
+	<div class="header__last flex">
+		<a href="#" class="header__profile">n0irizz00@gmail.com</a>
+		<a href="#" class="header__exit img-contain admin--js">
+			<img src="img/icons/exit.svg" alt="">
+		</a>
+	</div>
+</header>
+
+
+			<div class="page-content">
+
+<div class="clients">
+	<input type="text" name="text" class="main-search field" placeholder="Поиск">
+	<div class="dates">
+		<div class="dates__icon img-contain">
+			<img src="img/icons/date.svg" alt="">
+		</div>
+		<input type="text" data-range="true" data-multiple-dates-separator=" - " class="dates-field field datepicker-here" placeholder="Январь 2021">
+	</div>
+	<div class="clients__top flex">
+		<div class="clients__top-left">
+			<a href="#" class="clients__top-btn btn-item">Экспорт в excel</a>
+		</div>
+		<div class="clients__top-right flex">
+			<a href="#" class="clients__top-link">Новые</a>
+			<a href="#" class="clients__top-link active">Постоянные</a>
+		</div>
+	</div>
+	<div class="clients__scroll horizontal dragscroll">
+		<div class="clients__table">
+			<table>
+				<thead>
+					<tr>
+						<th>
+							<div class="clients__caption">Фото</div>
+							<a href="#" class="clients__icon img-contain">
+								<img src="img/icons/arrows.svg" alt="">
+							</a>
+						</th>
+						<th>
+							<div class="clients__caption">ФИО</div>
+							<a href="#" class="clients__icon img-contain">
+								<img src="img/icons/arrows.svg" alt="">
+							</a>
+						</th>
+						<th>
+							<div class="clients__caption">Телефон</div>
+							<a href="#" class="clients__icon img-contain">
+								<img src="img/icons/arrows.svg" alt="">
+							</a>
+						</th>
+						<th>
+							<div class="clients__caption">Количество посещений</div>
+							<a href="#" class="clients__icon img-contain">
+								<img src="img/icons/arrows.svg" alt="">
+							</a>
+						</th>
+						<th>
+							<div class="clients__caption">Последнее посещение</div>
+							<a href="#" class="clients__icon img-contain">
+								<img src="img/icons/arrows.svg" alt="">
+							</a>
+						</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							<div class="clients__avatar img-cover">
+								<img src="img/clients/img-1.png" alt="">
+							</div>
+						</td>
+						<td>
+							<div class="clients__name">Иванов<br> Петр<br> Владимирович</div>
+						</td>
+						<td>
+							<a href="tel:+790245687913" class="clients__tel">+790245687913</a>
+						</td>
+						<td>
+							<div class="clients__value">16</div>
+						</td>
+						<td>
+							<div class="clients__date">05.11.20</div>
+						</td>
+						<td>
+							<div class="clients__delite svg-contain">
+								<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path fill-rule="evenodd" clip-rule="evenodd" d="M7.11616 7.99992L2.55811 12.558L3.44199 13.4419L8.00005 8.88381L12.5581 13.4419L13.442 12.558L8.88393 7.99992L13.442 3.44187L12.5581 2.55798L8.00005 7.11604L3.44199 2.55798L2.55811 3.44187L7.11616 7.99992Z" fill="#828282"/>
+								</svg>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class="clients__avatar img-cover">
+								<img src="img/clients/img-2.png" alt="">
+							</div>
+						</td>
+						<td>
+							<div class="clients__name">Анфисова<br> Анна<br> Демьяновна</div>
+						</td>
+						<td>
+							<a href="tel:+793254798871" class="clients__tel">+793254798871</a>
+						</td>
+						<td>
+							<div class="clients__value">5</div>
+						</td>
+						<td>
+							<div class="clients__date">12.10.20</div>
+						</td>
+						<td>
+							<div class="clients__delite svg-contain">
+								<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path fill-rule="evenodd" clip-rule="evenodd" d="M7.11616 7.99992L2.55811 12.558L3.44199 13.4419L8.00005 8.88381L12.5581 13.4419L13.442 12.558L8.88393 7.99992L13.442 3.44187L12.5581 2.55798L8.00005 7.11604L3.44199 2.55798L2.55811 3.44187L7.11616 7.99992Z" fill="#828282"/>
+								</svg>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class="clients__avatar img-cover">
+								<img src="img/clients/img-3.png" alt="">
+							</div>
+						</td>
+						<td>
+							<div class="clients__name">Сидоров<br> Владислав<br> Васильевич</div>
+						</td>
+						<td>
+							<a href="tel:+790568712546" class="clients__tel">+790568712546</a>
+						</td>
+						<td>
+							<div class="clients__value">12</div>
+						</td>
+						<td>
+							<div class="clients__date">10.10.20</div>
+						</td>
+						<td>
+							<div class="clients__delite svg-contain">
+								<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path fill-rule="evenodd" clip-rule="evenodd" d="M7.11616 7.99992L2.55811 12.558L3.44199 13.4419L8.00005 8.88381L12.5581 13.4419L13.442 12.558L8.88393 7.99992L13.442 3.44187L12.5581 2.55798L8.00005 7.11604L3.44199 2.55798L2.55811 3.44187L7.11616 7.99992Z" fill="#828282"/>
+								</svg>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class="clients__avatar img-cover">
+								<img src="img/clients/img-4.png" alt="">
+							</div>
+						</td>
+						<td>
+							<div class="clients__name">Сидоров<br> Владислав<br> Васильевич</div>
+						</td>
+						<td>
+							<a href="tel:+79024309384" class="clients__tel">+79024309384</a>
+						</td>
+						<td>
+							<div class="clients__value">23</div>
+						</td>
+						<td>
+							<div class="clients__date">23.10.20</div>
+						</td>
+						<td>
+							<div class="clients__delite svg-contain">
+								<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path fill-rule="evenodd" clip-rule="evenodd" d="M7.11616 7.99992L2.55811 12.558L3.44199 13.4419L8.00005 8.88381L12.5581 13.4419L13.442 12.558L8.88393 7.99992L13.442 3.44187L12.5581 2.55798L8.00005 7.11604L3.44199 2.55798L2.55811 3.44187L7.11616 7.99992Z" fill="#828282"/>
+								</svg>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class="clients__avatar img-cover">
+								<img src="img/clients/img-5.png" alt="">
+							</div>
+						</td>
+						<td>
+							<div class="clients__name">Сидоров<br> Владислав<br> Васильевич</div>
+						</td>
+						<td>
+							<a href="tel:+79024309384" class="clients__tel">+79024309384</a>
+						</td>
+						<td>
+							<div class="clients__value">8</div>
+						</td>
+						<td>
+							<div class="clients__date">16.09.20</div>
+						</td>
+						<td>
+							<div class="clients__delite svg-contain">
+								<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path fill-rule="evenodd" clip-rule="evenodd" d="M7.11616 7.99992L2.55811 12.558L3.44199 13.4419L8.00005 8.88381L12.5581 13.4419L13.442 12.558L8.88393 7.99992L13.442 3.44187L12.5581 2.55798L8.00005 7.11604L3.44199 2.55798L2.55811 3.44187L7.11616 7.99992Z" fill="#828282"/>
+								</svg>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class="clients__avatar img-cover">
+								<img src="img/clients/img-6.png" alt="">
+							</div>
+						</td>
+						<td>
+							<div class="clients__name">Сидоров<br> Владислав<br> Васильевич</div>
+						</td>
+						<td>
+							<a href="tel:+79024309384" class="clients__tel">+79024309384</a>
+						</td>
+						<td>
+							<div class="clients__value">19</div>
+						</td>
+						<td>
+							<div class="clients__date">25.09.20</div>
+						</td>
+						<td>
+							<div class="clients__delite svg-contain">
+								<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path fill-rule="evenodd" clip-rule="evenodd" d="M7.11616 7.99992L2.55811 12.558L3.44199 13.4419L8.00005 8.88381L12.5581 13.4419L13.442 12.558L8.88393 7.99992L13.442 3.44187L12.5581 2.55798L8.00005 7.11604L3.44199 2.55798L2.55811 3.44187L7.11616 7.99992Z" fill="#828282"/>
+								</svg>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class="clients__avatar img-cover">
+								<img src="img/clients/img-7.png" alt="">
+							</div>
+						</td>
+						<td>
+							<div class="clients__name">Сидоров<br> Владислав<br> Васильевич</div>
+						</td>
+						<td>
+							<a href="tel:+79024309384" class="clients__tel">+79024309384</a>
+						</td>
+						<td>
+							<div class="clients__value">7</div>
+						</td>
+						<td>
+							<div class="clients__date">03.11.20</div>
+						</td>
+						<td>
+							<div class="clients__delite svg-contain">
+								<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path fill-rule="evenodd" clip-rule="evenodd" d="M7.11616 7.99992L2.55811 12.558L3.44199 13.4419L8.00005 8.88381L12.5581 13.4419L13.442 12.558L8.88393 7.99992L13.442 3.44187L12.5581 2.55798L8.00005 7.11604L3.44199 2.55798L2.55811 3.44187L7.11616 7.99992Z" fill="#828282"/>
+								</svg>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class="clients__avatar img-cover">
+								<img src="img/clients/img-8.png" alt="">
+							</div>
+						</td>
+						<td>
+							<div class="clients__name">Сидоров<br> Владислав<br> Васильевич</div>
+						</td>
+						<td>
+							<a href="tel:+79024309384" class="clients__tel">+79024309384</a>
+						</td>
+						<td>
+							<div class="clients__value">2</div>
+						</td>
+						<td>
+							<div class="clients__date">03.11.20</div>
+						</td>
+						<td>
+							<div class="clients__delite svg-contain">
+								<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path fill-rule="evenodd" clip-rule="evenodd" d="M7.11616 7.99992L2.55811 12.558L3.44199 13.4419L8.00005 8.88381L12.5581 13.4419L13.442 12.558L8.88393 7.99992L13.442 3.44187L12.5581 2.55798L8.00005 7.11604L3.44199 2.55798L2.55811 3.44187L7.11616 7.99992Z" fill="#828282"/>
+								</svg>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class="clients__avatar img-cover">
+								<img src="img/clients/img-9.png" alt="">
+							</div>
+						</td>
+						<td>
+							<div class="clients__name">Сидоров<br> Владислав<br> Васильевич</div>
+						</td>
+						<td>
+							<a href="tel:+79024309384" class="clients__tel">+79024309384</a>
+						</td>
+						<td>
+							<div class="clients__value">102</div>
+						</td>
+						<td>
+							<div class="clients__date">03.11.20</div>
+						</td>
+						<td>
+							<div class="clients__delite svg-contain">
+								<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path fill-rule="evenodd" clip-rule="evenodd" d="M7.11616 7.99992L2.55811 12.558L3.44199 13.4419L8.00005 8.88381L12.5581 13.4419L13.442 12.558L8.88393 7.99992L13.442 3.44187L12.5581 2.55798L8.00005 7.11604L3.44199 2.55798L2.55811 3.44187L7.11616 7.99992Z" fill="#828282"/>
+								</svg>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class="clients__avatar img-cover">
+								<img src="img/clients/img-10.png" alt="">
+							</div>
+						</td>
+						<td>
+							<div class="clients__name">Сидоров<br> Владислав<br> Васильевич</div>
+						</td>
+						<td>
+							<a href="tel:+79024309384" class="clients__tel">+79024309384</a>
+						</td>
+						<td>
+							<div class="clients__value">14</div>
+						</td>
+						<td>
+							<div class="clients__date">03.11.20</div>
+						</td>
+						<td>
+							<div class="clients__delite svg-contain">
+								<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path fill-rule="evenodd" clip-rule="evenodd" d="M7.11616 7.99992L2.55811 12.558L3.44199 13.4419L8.00005 8.88381L12.5581 13.4419L13.442 12.558L8.88393 7.99992L13.442 3.44187L12.5581 2.55798L8.00005 7.11604L3.44199 2.55798L2.55811 3.44187L7.11616 7.99992Z" fill="#828282"/>
+								</svg>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<div class="clients__avatar img-cover">
+								<img src="img/clients/img-11.png" alt="">
+							</div>
+						</td>
+						<td>
+							<div class="clients__name">Сидоров<br> Владислав<br> Васильевич</div>
+						</td>
+						<td>
+							<a href="tel:+79024309384" class="clients__tel">+79024309384</a>
+						</td>
+						<td>
+							<div class="clients__value">56</div>
+						</td>
+						<td>
+							<div class="clients__date">03.11.20</div>
+						</td>
+						<td>
+							<div class="clients__delite svg-contain">
+								<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path fill-rule="evenodd" clip-rule="evenodd" d="M7.11616 7.99992L2.55811 12.558L3.44199 13.4419L8.00005 8.88381L12.5581 13.4419L13.442 12.558L8.88393 7.99992L13.442 3.44187L12.5581 2.55798L8.00005 7.11604L3.44199 2.55798L2.55811 3.44187L7.11616 7.99992Z" fill="#828282"/>
+								</svg>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+
+</div>
+<footer class="footer">
+ 
+</footer>
+
+
+
+		</div>
+	</div>
+    <script src="js/libs.js"></script>
+    <script src="js/index.js"></script>
+  </body>
+</html>

@@ -32,9 +32,9 @@ class Database extends \CodeIgniter\Database\Config
     public $default = [
         'DSN' => '',
         'hostname' => 'ilyabag2.beget.tech',
-        'username' => 'ilyabag2_cargo',
-        'password' => 'q%y6GGny', // %Tu%WkX4 для локального
-        'database' => 'ilyabag2_cargo',
+        'username' => 'ilyabag2_facerad',
+        'password' => 'eWS4*hD9eWS4*hD9', // %Tu%WkX4 для локального
+        'database' => 'ilyabag2_facerad',
         'DBDriver' => 'MySQLi',
         'DBPrefix' => '',
         'pConnect' => false,

@@ -20,8 +20,8 @@ class App extends BaseConfig
 	| explicitly and never rely on auto-guessing, especially in production
 	| environments.
 	|
-	*/
-	public $baseURL = 'http://localhost/CargoTaxiCrm';
+	*/ 
+	public $baseURL = 'http://localhost/faceradar';
 
 	/*
 	|--------------------------------------------------------------------------
