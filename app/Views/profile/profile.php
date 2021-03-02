@@ -1,10 +1,67 @@
 
-<?= $this->include('profile/template/header'); ?>
 
+
+
+<div class="page">
+    <?= $this->include('profile/template/header'); ?>
+    <?php echo "<pre>"; print_r($_SESSION['user']); echo "</pre>"; ?>
+
+    <div class="page-content">
+
+        <div class="info-profile">
+            <div class="info-profile__top flex">
+                <div class="info-profile__title title flex">
+                    <span>Новый пользователь</span>
+                    <img src="<?= base_url();?>/assets/img/icons/edit.svg" alt="">
+                </div>
+                <div class="info-profile__time">Срок действия  аккаунта: до 12.12.2022</div>
+            </div>
+            <form action="#" class="form">
+                <div class="form__row">
+                    <div class="form__coll">
+                        <div class="form__caption">Телефон</div>
+                        <input type="text" name="name" class="form__field field phone-mask" placeholder="Введите телефн">
+                    </div>
+                    <div class="form__coll">
+                        <div class="form__caption">Email</div>
+                        <input type="text" name="name" class="form__field field" placeholder="email00@gmail.com">
+                    </div>
+                    <div class="form__coll">
+                        <div class="form__caption">ООО</div>
+                        <input type="text" name="name" class="form__field field" placeholder="Введите название">
+                    </div>
+                    <div class="form__coll">
+                        <div class="form__caption">Адрес</div>
+                        <input type="text" name="name" class="form__field field" placeholder="Введите адрес">
+                    </div>
+                    <div class="form__coll form__coll_small">
+                        <div class="form__caption">Логин</div>
+                        <input type="text" name="name" class="form__field field" placeholder="LogIN01">
+                    </div>
+                    <div class="form__coll form__coll_small">
+                        <div class="form__caption">Пароль</div>
+                        <input type="text" name="name" class="form__field field" placeholder="******">
+                    </div>
+                    <div class="form__coll form__coll_small">
+                        <div class="form__caption">Api ключ</div>
+                        <input type="text" name="name" class="form__field field" placeholder="abCDFj">
+                    </div>
+                </div>
+                <div class="form__bottom">
+                    <button class="form__btn btn">Сохранить</button>
+                </div>
+            </form>
+        </div>
+
+        <?= $this->include('profile/template/modals'); ?>
+
+    </div>
+
+<?php if (false): ?>
 <div class="container cities">
     <div class="container__body">
-        
-        <?= $this->include('profile/template/left-menu'); ?> 
+
+
 
         <div class="container__right">
             <?= $this->include('profile/template/top-menu'); ?>
@@ -38,7 +95,7 @@
 		            					</div>
 		            				</div>
 		            			</form>
-            				</div>            				
+            				</div>
             			</div>
             			<div class="profile-form__section">
             				<div class="profile-form__title">Сменить пароль</div>
@@ -76,8 +133,8 @@
             			</div>
             			<div class="profile-address__content">
             				<div class="profile-address__subtitle">Последние добавленные</div>
-							<?php 
-						
+							<?php
+
 							if($address_list){ ?>
 								<div class="profile-address__list">
 									<?php foreach ($address_list as $list) { ?>
@@ -129,5 +186,9 @@
 		</div>
 	</div>
 </div><!-- end modal-profile-password -->
+
+
+
+<?php endif; ?>
 
 <?= $this->include('profile/template/footer'); ?>
