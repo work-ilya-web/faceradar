@@ -17,7 +17,7 @@ if (file_exists(SYSTEMPATH . 'Config/Routes.php'))
  */
 $routes->setDefaultNamespace('App\Controllers');
 $routes->setDefaultController('Home');
-$routes->setDefaultMethod('index');
+$routes->setDefaultMethod('index2');
 $routes->setTranslateURIDashes(false);
 $routes->set404Override();
 $routes->setAutoRoute(true);
@@ -32,7 +32,7 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan// directories.
 $routes->get('/', 'Home::index');
 $routes->match(['get', 'post'], '/register', 'Auth::register_view', ['filter' => 'noauth']);
-$routes->match(['get', 'post'], '/login', 'Auth::login_view', ['filter' => 'noauth']);
+$routes->get('/login', 'Auth::login_view', ['filter' => 'noauth']);
 $routes->match(['get', 'post'], '/recovery', 'Auth::recovery_view', ['filter' => 'noauth']);
 $routes->get('profile', 'Profile::profile', ['filter' => 'auth']);
 //$routes->get('profile/cities', 'Profile::cities', ['filter' => 'auth']);
@@ -55,7 +55,7 @@ $routes->get('profile/users-main', 'Admin\UsersAdmin::index', ['filter' => 'auth
 $routes->get('profile/users-main/(:any)', 'Admin\UsersAdmin::item_view/$1', ['filter' => 'auth']);
 $routes->get('profile/users-main/(:any)/(:any)', 'Admin\UsersAdmin::item_view/$1/$2', ['filter' => 'auth']);
 
-// Client 
+// Client
 $routes->get('profile/address', 'Client\Address::index', ['filter' => 'auth']);
 $routes->get('profile/address/(:any)', 'Client\Address::item_view/$1', ['filter' => 'auth']);
 $routes->get('profile/address/(:any)/(:any)', 'Client\Address::item_view/$1/$2', ['filter' => 'auth']);

@@ -4,12 +4,12 @@ class Home extends BaseController
 {
 	public function index()
 	{
-		return view('welcome_message');
+		echo 1;
 	}
 
 	public function index2()
 	{
-		echo 1;
+		echo 2;
 	}
 
 	//--------------------------------------------------------------------
