@@ -4,7 +4,7 @@ class Home extends BaseController
 {
 	public function index()
 	{
-		echo 1;
+		echo 3;
 	}
 
 	public function index2()
