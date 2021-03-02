@@ -1,32 +1,20 @@
-
 <?= $this->include('template/head'); ?>
 
 <?php $register_message = session()->getFlashdata('success'); ?>
 
-<div class="container">
-    <div class="main-window flex-center">
-        <form action="<?= site_url('Auth/login'); ?>" method="post" class="main-window__form login-form">
-            <div class="main-window__logo img-contain">
-                <img src="<?= base_url();?>/assets/img/logo.svg" alt="">
-            </div>
+
+<div class="entry flex-center">
+    <form action="<?= site_url('Auth/login'); ?>" method="post" class="entry__form main-window__form login-form">
+        <a href="/" class="logo">Faceradar</a>
+        <div class="entry__body">
             <?= ($register_message ? $register_message : ''); ?>
-            <div class="main-window__box">
-                <div class="main-window__caption">Номер телефона</div>
-                <input type="text" name="phone" class="main-window__field field phone-mask" placeholder="+ 7 (___) ___ - ___ - __">
-            </div>
-            <div class="main-window__box">
-                <div class="main-window__caption">Пароль</div>
-                <input type="password" name="password" class="main-window__field field" placeholder="">
-            </div>
-            <button class="main-window__btn">войти</button>
-            <div class="main-window__center">
-                <a href="<?= site_url('recovery'); ?>" class="main-window__link">Забыли пароль?</a>
-            </div>
-            <div class="main-window__bottom flex-center">
-                нет аккаунта? <a href="<?= site_url('register'); ?>" class="main-window__link">зарегистрируйтесь</a>
-            </div>
-        </form>
-    </div>
+            <input type="text" name="email" class="entry__field field" placeholder="Email">
+            <input type="password" name="password" class="entry__field field" placeholder="Пароль">
+            <button class="entry__btn btn main-window__btn">Войти</button>
+        </div>
+    </form>
 </div>
+
+
 
 <?= $this->include('template/footer'); ?>

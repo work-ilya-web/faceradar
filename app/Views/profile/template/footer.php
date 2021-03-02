@@ -1,10 +1,5 @@
-
-<script src="<?= base_url();?>/assets/js/jquery-3.2.1.min.js"></script>
-<script src="<?= base_url();?>/assets/libs/mask/jquery.maskedinput.min.js"></script>
-<script src="<?= base_url();?>/assets/libs/fancybox/jquery.fancybox.min.js"></script>
-<script src="<?= base_url();?>/assets/js/main.js"></script>
-<script src="<?= base_url();?>/assets/js/admin.js"></script>
-<script src="<?= base_url();?>/assets/js/common.js"></script>
-
+    <script src="<?= base_url();?>/assets/js/libs.js"></script>
+    <script src="<?= base_url();?>/assets/js/index.js"></script>
+    <script src="<?= base_url();?>/assets/js/main.js"></script>
 </body>
 </html>

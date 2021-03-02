@@ -21,7 +21,7 @@ class App extends BaseConfig
 	| environments.
 	|
 	*/ 
-	public $baseURL = 'http://localhost/faceradar';
+	public $baseURL = 'http://localhost/FaceRadar';
 
 	/*
 	|--------------------------------------------------------------------------

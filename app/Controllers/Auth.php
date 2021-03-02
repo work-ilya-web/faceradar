@@ -7,7 +7,7 @@ use App\Libraries\AuthLib;
 
 class Auth extends BaseController {
 
-    public function login_view(){  
+    public function login_view(){
         echo view('profile/login', [
             'title' => 'Войти',
             'success' => true
@@ -15,7 +15,7 @@ class Auth extends BaseController {
     }
 
     public function login(){
-        
+
         $userModel = new UserModel();
         $loginLib = new AuthLib();
         $data = [];
@@ -25,22 +25,23 @@ class Auth extends BaseController {
             $validation =  \Config\Services::validation();
 
             $rules = [
-                'phone' => 'required|min_length[6]|max_length[50]',
-                'password' => 'required|min_length[4]|max_length[255]|validateUser[phone,password]',
+                'email' => 'required|min_length[6]|max_length[50]',
+                'password' => 'required|min_length[4]|max_length[255]|validateUser[email,password]',
             ];
 
             $errors = [
                 'password' => [
-                    'validateUser' => "Телефон или пароль не верный",
+                    'validateUser' => "Логин или пароль не верный",
                 ],
             ];
 
             if (!$this->validate($rules, $errors)){
                 $data_errors['validation'] = $validation->getErrors();
+                echo "<pre>"; print_r($_POST); echo "</pre>";
                 return $this->response->setJSON($data_errors);
             } else {
-                
-                $user = $userModel->where('phone', $this->request->getVar('phone'))
+
+                $user = $userModel->where('email', $this->request->getVar('email'))
                     ->first();
 
                 $loginLib->setUserSession($user);
@@ -49,110 +50,9 @@ class Auth extends BaseController {
         }
     }
 
-    public function register_view(){  
 
-        $cities = new CitiesModel();
 
-        $data['title'] = 'Регистрация';
-        $data['success'] = true;
-        $data['cities'] = $cities->RegisterCities();
-
-        echo view('profile/register', $data);
-    }
-
-    public function register(){
-        $data_error = [];
-        $userModel = new UserModel();
-        $authLib = new AuthLib();
-
-        if ($this->request->getMethod() == 'post') {
-            $validation =  \Config\Services::validation();
-
-            $step = $this->request->getVar('step');
-
-            if($step == 1){
-                $rules = [
-                    'phone' => 'required|min_length[9]|max_length[20]|is_unique[users.phone]',
-                    'email' => 'required|min_length[6]|max_length[50]|valid_email|is_unique[users.email]',
-                    'password' => 'required|min_length[8]|max_length[50]',
-                    'password_confirm' => 'matches[password]',
-                ];
-
-                if (!$this->validate($rules)){
-                    $data_errors['validation'] = $validation->getErrors();
-                    return $this->response->setJSON($data_errors);
-                } 
-            } elseif($step == 2){
-                $rules = [
-                    'surname' => 'required|max_length[50]',
-                    'name' => 'required|max_length[50]',
-                    'patronymic' => 'required|max_length[50]',
-                ];
-
-                if (!$this->validate($rules)){
-                    $data_errors['validation'] = $validation->getErrors();
-                    return $this->response->setJSON($data_errors); 
-                } else {
-                    $session = session();
-                    $code_session = session()->get('code');
-
-                    if($code_session == null){
-                        $code = $authLib->getCode();
-                        $code_session = $session->get('code');
-                    }
-
-                    $data_errors['code_session'] = $code_session;
-
-                    $step_code = $this->request->getVar('step_code');
-                    if($step_code){
-                        $code_rules = [
-                            'code' => 'required|min_length[4]|max_length[4]',
-                        ];
-                        if (!$this->validate($code_rules)){
-                            $data_errors['code_rules'] = $validation->getErrors();
-                            return $this->response->setJSON($data_errors);
-                        } else {
-                            $code_input = $this->request->getVar('code');
-                            if($code_session == $code_input){
-                                $newData = [
-                                    'name' => $this->request->getVar('name'),
-                                    'surname' => $this->request->getVar('surname'),
-                                    'patronymic' => $this->request->getVar('patronymic'),
-                                    'email' => $this->request->getVar('email'),
-                                    'phone' => $this->request->getVar('phone'),
-                                    'city_id' => $this->request->getVar('type'),
-                                    'password' => $this->request->getVar('password'),
-                                ];
-                                $userModel->save($newData);
-                                $session = session();
-                                $session->setFlashdata('success', 'Регистрация прошла успешно');
-            
-                                $data_errors['success'] = [
-                                    'redirect' => site_url('login')
-                                ];
-
-                                unset($_SESSION['code']);
-
-                                return $this->response->setJSON($data_errors); 
-                            } else {
-                                $data_errors['code_rules'] = [
-                                    'code' => 'Код введен не верно'
-                                ];
-                                return $this->response->setJSON($data_errors);
-                            }
-                        }
-                    } else {
-                        return $this->response->setJSON($data_errors);
-                    }
-
-                }
-
-            }
-
-        }
-    }
-
-    public function recovery_view(){  
+    public function recovery_view(){
         echo view('profile/recovery', [
             'title' => 'Восстановить пароль',
             'success' => true
@@ -213,7 +113,7 @@ class Auth extends BaseController {
 
                 }
             } else {
-            
+
                 $rules = [
                     'password' => 'required|min_length[8]|max_length[50]',
                     'password_confirm' => 'matches[password]',
@@ -231,7 +131,7 @@ class Auth extends BaseController {
                     ];
                     $userModel->update($password_id['id'], $data);
                     unset($_SESSION['code']);
-                    
+
                     $session = session();
                     $session->setFlashdata('success', 'Вы сменили пароль');
 
@@ -269,14 +169,14 @@ class Auth extends BaseController {
 
     }
 
-    public function logout(){       
-        
+    public function logout(){
+
         $loginLib = new AuthLib();
         $loginLib->setUserSession(false);
 
-        return redirect()->to(base_url().'/login');  
+        return redirect()->to(base_url().'/login');
     }
 
-    
+
 
 }

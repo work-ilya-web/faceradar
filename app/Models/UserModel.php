@@ -29,14 +29,10 @@ class UserModel extends Model
         return $data;
     }
 
-    protected function getID($phone){
-        $find_id = $this->where('phone', $phone)->first();
-        return $find_id;
-    }
 
     public function getUsers(){
         $model_group = new UserGroup();
-        $users = [];        
+        $users = [];
         foreach ($this->findAll() as  $user) {
             $users[] = [
                 'id' => $user['id'],
