@@ -37,23 +37,20 @@ $routes->match(['get', 'post'], '/recovery', 'Auth::recovery_view', ['filter' =>
 $routes->get('profile', 'Profile::profile', ['filter' => 'auth']);
 //$routes->get('profile/cities', 'Profile::cities', ['filter' => 'auth']);
 
-// Admin login
-$routes->match(['get', 'post'], '/admin/login', 'Admin\Auth::login_view', ['filter' => 'noauth']);
 
-// Cities
-$routes->get('profile/cities', 'Admin\City::index', ['filter' => 'auth']);
-$routes->get('profile/cities/(:any)', 'Admin\City::item_view/$1', ['filter' => 'auth']);
-$routes->get('profile/cities/(:any)/(:any)', 'Admin\City::item_view/$1/$2', ['filter' => 'auth']);
 
-// Users - clients
-$routes->get('profile/users', 'Admin\Users::index', ['filter' => 'auth']);
-$routes->get('profile/users/(:any)', 'Admin\Users::item_view/$1', ['filter' => 'auth']);
-$routes->get('profile/users/(:any)/(:any)', 'Admin\Users::item_view/$1/$2', ['filter' => 'auth']);
 
-// Users - admin/operators
-$routes->get('profile/users-main', 'Admin\UsersAdmin::index', ['filter' => 'auth']);
-$routes->get('profile/users-main/(:any)', 'Admin\UsersAdmin::item_view/$1', ['filter' => 'auth']);
-$routes->get('profile/users-main/(:any)/(:any)', 'Admin\UsersAdmin::item_view/$1/$2', ['filter' => 'auth']);
+// Users
+$routes->get('profile/users', 'Users::index', ['filter' => 'auth']);
+$routes->get('profile/users/(:any)', 'Users::item_view/$1', ['filter' => 'auth']);
+$routes->get('profile/users/(:any)/(:any)', 'Users::item_view/$1/$2', ['filter' => 'auth']);
+
+
+// Users
+$routes->get('profile/companies', 'Companies::index', ['filter' => 'auth']);
+$routes->get('profile/companies/(:any)', 'Companies::item_view/$1', ['filter' => 'auth']);
+$routes->get('profile/companies/(:any)/(:any)', 'Companies::item_view/$1/$2', ['filter' => 'auth']);
+
 
 // Client
 $routes->get('profile/address', 'Client\Address::index', ['filter' => 'auth']);

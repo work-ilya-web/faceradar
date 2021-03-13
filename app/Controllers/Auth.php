@@ -8,7 +8,7 @@ use App\Libraries\AuthLib;
 class Auth extends BaseController {
 
     public function login_view(){
-        echo view('profile/login', [
+        echo view('profile/login_view', [
             'title' => 'Войти',
             'success' => true
         ]);
@@ -53,7 +53,7 @@ class Auth extends BaseController {
 
 
     public function recovery_view(){
-        echo view('profile/recovery', [
+        echo view('profile/recovery_view', [
             'title' => 'Восстановить пароль',
             'success' => true
         ]);

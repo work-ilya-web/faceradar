@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-    // Login form
+
     $('.login-form .main-window__btn').click(function (e) {
         e.preventDefault();
 
@@ -35,8 +35,111 @@ $(document).ready(function () {
 
     });
 
+
+    $('.profile_admin_save_ajax--js .send--js').click(function (e) {
+        e.preventDefault();
+
+        var form = $(this).closest('form'),
+            name = form.find('input[name="name"]'),
+            surname = form.find('input[name="surname"]'),
+            email = form.find('input[name="email"]'),
+            api = form.find('input[name="api"]');
+
+        form.find('input.error').removeClass('active');
+        form.find('.main-window__notice').remove();
+
+        $.ajax({
+            url: form.attr('action'),
+            method: 'POST',
+            data: form.serialize(),
+            success: function (result) {
+                if (result.validation){
+                    if (result.validation.name){
+                        name.addClass('error');
+                        name.after('<div class="main-window__notice">'+result.validation.name+'</div>');
+                    }
+                    if (result.validation.surname){
+                        surname.addClass('error');
+                        surname.after('<div class="main-window__notice">'+result.validation.surname+'</div>');
+                    }
+                    if (result.validation.email){
+                        email.addClass('error');
+                        email.after('<div class="main-window__notice">'+result.validation.email+'</div>');
+                    }
+                    if (result.validation.api){
+                        api.addClass('error');
+                        api.after('<div class="main-window__notice">'+result.validation.api+'</div>');
+                    }
+                } else {
+                    $.fancybox.open({loop:!1,src:"#success-modal",baseClass:"bg-fancybox",touch:!1});
+                }
+
+            }
+        });
+
+    });
+
+    $('.edit_password_ajax--js .send--js').click(function (e) {
+        e.preventDefault();
+
+        var form = $(this).closest('form'),
+            password = form.find('input[name="password"]');
+
+        form.find('input.error').removeClass('active');
+        form.find('.main-window__notice').remove();
+
+        $.ajax({
+            url: form.attr('action'),
+            method: 'POST',
+            data: form.serialize(),
+            success: function (result) {
+                if (result.validation){
+                    if (result.validation.password){
+                        password.addClass('error');
+                        password.after('<div class="main-window__notice">'+result.validation.password+'</div>');
+                    }
+                } else {
+                    password.attr('type', 'password');
+                    $.fancybox.open({loop:!1,src:"#success-modal",baseClass:"bg-fancybox",touch:!1});
+                }
+
+            }
+        });
+
+    });
+
+    $('.delete--js').click(function (e) {
+        e.preventDefault();
+
+        var link = $(this),
+            action = link.attr('href'),
+            id = link.data('id'),
+            row = link.parent().parent().parent();
+
+        if(confirm("Вы действительно хотите удалить элемент?")){
+            row.addClass('deleting');
+            $.ajax({
+                url: action,
+                method: 'POST',
+                success: function (result) {
+                    console.log(result.success);
+                    if (!result.success){
+                        alert('Произошла ошибка');
+                    } else {
+                        setTimeout(function(){
+                            row.hide();
+                        }, 300);                        
+                    }
+                }
+            });
+        }
+
+
+
+    });
+
     // Code repeat
-    $('.main-window__form').on('click', '.code-new', function(e){
+    /*$('.main-window__form').on('click', '.code-new', function(e){
         e.preventDefault();
 
         let form = $(this).closest('.main-window__item');
@@ -51,10 +154,10 @@ $(document).ready(function () {
             }
         });
 
-    });
+    });*/
 
     // Register form
-    $('.register-form .main-window__btn').click(function (e) {
+    /*$('.register-form .main-window__btn').click(function (e) {
         e.preventDefault();
 
         let form = $(this).closest('form'),
@@ -103,10 +206,10 @@ $(document).ready(function () {
                 }
             });
 
-    });
+    });*/
 
     // Recovery form
-    $('.recovery-form .main-window__btn').click(function (e) {
+    /*$('.recovery-form .main-window__btn').click(function (e) {
         e.preventDefault();
 
         let form = $(this).closest('form'),
@@ -157,7 +260,7 @@ $(document).ready(function () {
                 }
             });
 
-    });
+    });*/
 
 
 });

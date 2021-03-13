@@ -4,7 +4,7 @@ use CodeIgniter\Model;
 class UserModel extends Model
 {
     protected $table = 'users';
-    protected $allowedFields = ['name','surname','patronymic','email','phone','city_id','password'];
+    protected $allowedFields = ['name','surname','patronymic','email','phone','api','password'];
     protected $beforeInsert = ['beforeInsert'];
     protected $beforeUpdate = ['beforeUpdate'];
 
@@ -48,5 +48,7 @@ class UserModel extends Model
     public function GetUser($id){
         return $this->where('id', $id)->first();
     }
+
+
 
 }
