@@ -15,9 +15,11 @@ class Companies extends BaseController
         $loginLib = new AuthLib();
         $userModel = new UserModel();
         $userGroupModel = new UserGroup();
+        $CompaniesModel = new CompaniesModel();
         $session = session();
         $GLOBALS['user'] =  $userModel->GetUser($session->get('user')['id']);
         $GLOBALS['user']['permission'] =  $userGroupModel->GetUserPermission($GLOBALS['user']['group']);
+        $GLOBALS['user']['companies'] =  $CompaniesModel->find($GLOBALS['user']['companies_id']);
         if (!$loginLib->isLogin() OR !$loginLib->isAdmin()) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException();
         }
@@ -38,7 +40,7 @@ class Companies extends BaseController
             'count' => $model->countAll(),
         ];
 
-        return view('profile/admin/companies/list_view',  $data);
+        return view('profile/companies/list_view',  $data);
 
     }
 
@@ -74,9 +76,9 @@ class Companies extends BaseController
                     'title' => 'Добавить компанию',
                     'menu_companies' =>true,
                     'action' => site_url('companies/add_ajax'),
-                    'back_url' => site_url('profile/companies'),
-                    'url_add' => site_url('profile/companies/add'),
-                    'url_list' => site_url('profile/companies'),
+                    'back_url' => site_url('companies'),
+                    'url_add' => site_url('companies/add'),
+                    'url_list' => site_url('companies'),
                 ];
                 break;
             case 'edit':
@@ -93,8 +95,8 @@ class Companies extends BaseController
                             'menu_companies' =>true,
                             'action' => site_url('companies/edit_ajax'),
                             'back_url' => $agent->getReferrer(),
-                            'url_add' => site_url('profile/companies/add'),
-                            'url_list' => site_url('profile/companies'),
+                            'url_add' => site_url('companies/add'),
+                            'url_list' => site_url('companies'),
                         ];
                     }
                 } else {
@@ -107,7 +109,7 @@ class Companies extends BaseController
                 throw new \CodeIgniter\Exceptions\PageNotFoundException();
 
         }
-        return view('profile/admin/companies/item_view',  $data);
+        return view('profile/companies/item_view',  $data);
 
      }
 

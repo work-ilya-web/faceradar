@@ -10,14 +10,31 @@
         <form action="<?= $action; ?>" class="form form--js">
             <div class="form__row">
                 <div class="form__coll">
-                    <div class="form__caption">Название</div>
+                    <div class="form__caption">Имя</div>
                     <input type="text" name="name" class="form__field field" value="<?=@$item['name']?>" >
                 </div>
                 <div class="form__coll">
-                    <div class="form__caption">Адрес</div>
-                    <input type="text" name="address" class="form__field field" value="<?=@$item['address']?>" >
+                    <div class="form__caption">Фамилия</div>
+                    <input type="text" name="surname" class="form__field field" value="<?=@$item['surname']?>" >
+                </div>
+                <div class="form__coll">
+                    <div class="form__caption">Отчество</div>
+                    <input type="text" name="patronymic" class="form__field field" value="<?=@$item['patronymic']?>" >
+                </div>
+                <div class="form__coll">
+                    <div class="form__caption">Email</div>
+                    <input type="text" name="email" class="form__field field" value="<?=@$item['email']?>" >
                 </div>
 
+
+                <div class="form__coll">
+                    <div class="form__caption">Пароль</div>
+                    <input type="password" name="password" class="form__field field"  >
+                </div>
+                <div class="form__coll">
+                    <div class="form__caption">Повторите пароль</div>
+                    <input type="password" name="password_confirm" class="form__field field">
+                </div>
             </div>
             <div class="form__bottom">
                 <input type="hidden" name="back_url" value="<?= $back_url; ?>">
@@ -37,8 +54,10 @@ $( document ).ready(function() {
         e.preventDefault();
 
         let form = $(this).closest('form'),
-            name = form.find('input[name="name"]'),
-            address = form.find('input[name="address"]');
+            <?php foreach ($rules as $field => $value) { ?>
+                <?=$field?> = form.find('input[name="<?=$field?>"]'),
+            <?php } ?>
+            rules = true;
 
         form.find('input.error').removeClass('active');
         form.find('.main-window__notice').remove();
@@ -50,14 +69,14 @@ $( document ).ready(function() {
             success: function (result) {
 
                 if (result.validation){
-                    if (result.validation.name){
-                        name.addClass('error');
-                        name.after('<div class="main-window__notice">'+result.validation.name+'</div>');
-                    }
-                    if (result.validation.address){
-                        address.addClass('error');
-                        address.after('<div class="main-window__notice">'+result.validation.address+'</div>');
-                    }
+                    <?php foreach ($rules as $field => $value) { ?>
+                        if (result.validation.<?=$field?>){
+                            <?=$field?>.addClass('error');
+                            <?=$field?>.after('<div class="main-window__notice">'+result.validation.<?=$field?>+'</div>');
+                        } else {
+                            <?=$field?>.removeClass('error');
+                        }
+                    <?php } ?>
                 } else {
                     $.fancybox.open({loop:!1,src:"#complited-modal",baseClass:"bg-fancybox",touch:!1});
                 }

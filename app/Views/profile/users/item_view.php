@@ -50,6 +50,10 @@
                     <div class="form__caption">Повторите пароль</div>
                     <input type="password" name="password_confirm" class="form__field field">
                 </div>
+                <div class="form__coll">
+                    <div class="form__caption">Api ключ</div>
+                    <input type="text" name="api" class="form__field field" value="<?=@$item['api']?>" >
+                </div>
             </div>
             <div class="form__bottom">
                 <input type="hidden" name="back_url" value="<?= $back_url; ?>">

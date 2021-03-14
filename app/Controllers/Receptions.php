@@ -8,7 +8,7 @@ use App\Models\UserModel;
 use App\Models\UserGroup;
 use App\Models\CompaniesModel;
 
-class Users extends BaseController
+class Receptions extends BaseController
 {
 
     function __construct()
@@ -21,7 +21,7 @@ class Users extends BaseController
         $GLOBALS['user'] =  $userModel->GetUser($session->get('user')['id']);
         $GLOBALS['user']['permission'] =  $userGroupModel->GetUserPermission($GLOBALS['user']['group']);
         $GLOBALS['user']['companies'] =  $CompaniesModel->find($GLOBALS['user']['companies_id']);
-        if (!$loginLib->isLogin() && !$loginLib->isAdmin()) {
+        if (!$loginLib->isAdmin() AND !$loginLib->isManager()) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException();
         }
     }
@@ -32,21 +32,16 @@ class Users extends BaseController
         $UsersModel = new UsersModel();
         $in_page = ($this->request->getVar('in_page') ? $this->request->getVar('in_page') : 10);
 
-        if ($loginLib->isAdmin()) {
+        $UsersList = $UsersModel->getReceptions();
+        $data = [
+            'title' => 'Список пользователей Receptions',
+            'menu_receptions' =>true,
+            'items' => $UsersList->paginate($in_page, 'users'),
+            'pager' => $UsersModel->pager,
+            'url_add'   => site_url('receptions/add'),
+        ];
 
-            $UsersList = $UsersModel->getUsers();
-            $data = [
-                'title' => 'Список клиентов',
-                'admin' => true,
-                'menu_users' =>true,
-                'items' => $UsersList->paginate($in_page, 'users'),
-                'pager' => $UsersModel->pager,
-                'count' => $UsersModel->countAll(),
-            ];
-        } else {
-            return 'Нет прав';
-        }
-        return view('profile/users/list_view',  $data);
+        return view('profile/receptions/list_view',  $data);
 
     }
 
@@ -77,7 +72,7 @@ class Users extends BaseController
         $UsersModel = new UsersModel();
         $CompaniesModel = new CompaniesModel();
         $UsersGroup = new UserGroup();
-
+        //echo "<pre>"; print_r($GLOBALS['user']); echo "</pre>";
         $rules = [
             'surname' => 'required|min_length[3]|max_length[50]',
             'name' => 'required|min_length[3]|max_length[50]',
@@ -87,55 +82,46 @@ class Users extends BaseController
             'password_confirm' => 'required|matches[password]',
         ];
 
-        if ($loginLib->isAdmin()) {
-            switch ($event){
-                case 'add':
-                    $data = [
-                        'title'     => 'Добавление пользователя',
-                        'admin'     => true,
-                        'companies' => $CompaniesModel->findAll(),
-                        'groups'    => $UsersGroup->findAll(),
-                        'action'    => site_url('users/add_ajax'),
-                        'url_add'   => site_url('users/add'),
-                        'url_list'  => site_url('users'),
-                        'rules'     => $rules,
-                        'item'      => ['api'=>random_string('alnum', 32)]
-                    ];
-                    break;
-                case 'edit':
-                    if(is_numeric($id)){
-                        $userInfo = $UsersModel->GetUser($id);
-                        $agent = $this->request->getUserAgent();
 
-                        if($userInfo == null){
-                            throw new \CodeIgniter\Exceptions\PageNotFoundException();
-                        } else {
-                            $data = [
-                                'title' => 'Редактировать пользователя',
-                                'item' => $userInfo,
-                                'admin' => true,
-                                'action' => site_url('users/edit_ajax'),
-                                'companies' => $CompaniesModel->findAll(),
-                                'groups' => $UsersGroup->findAll(),
-                                'url_add' => site_url('users/add'),
-                                'url_list' => site_url('users'),
-                                'rules'    => $rules
-                            ];
-                        }
-                    } else {
+        switch ($event){
+            case 'add':
+                $data = [
+                    'title'     => 'Добавление пользователя',
+                    'action'    => site_url('receptions/add_ajax'),
+                    'url_add'   => site_url('receptions/add'),
+                    'url_list'  => site_url('receptions'),
+                    'rules'     => $rules
+                ];
+                break;
+            case 'edit':
+                if(is_numeric($id)){
+                    $userInfo = $UsersModel->GetUser($id);
+
+                    if($userInfo == null OR $userInfo['group'] != 3){
                         throw new \CodeIgniter\Exceptions\PageNotFoundException();
+                    } else {
+                        $data = [
+                            'title' => 'Редактировать пользователя',
+                            'item' => $userInfo,
+                            'action' => site_url('receptions/edit_ajax'),
+                            'url_add' => site_url('receptions/add'),
+                            'url_list' => site_url('receptions'),
+                            'rules'    => $rules
+                        ];
+
                     }
-
-                    break;
-
-                default:
+                } else {
                     throw new \CodeIgniter\Exceptions\PageNotFoundException();
+                }
 
-            }
-            return view('profile/users/item_view',  $data);
-        } else {
-            throw new \CodeIgniter\Exceptions\PageNotFoundException();
+                break;
+
+            default:
+                throw new \CodeIgniter\Exceptions\PageNotFoundException();
+
         }
+        return view('profile/receptions/item_view',  $data);
+
      }
 
 
@@ -167,13 +153,11 @@ class Users extends BaseController
                     'patronymic'    => $this->request->getVar('patronymic'),
                     'email'         => $this->request->getVar('email'),
                     'password'      => $this->request->getVar('password'),
-                    'companies_id'  => $this->request->getVar('companies_id'),
-                    'group'         => $this->request->getVar('group'),
-                    'api'           => $this->request->getVar('api')
+                    'companies_id'  => $GLOBALS['user']['companies']['id'],
+                    'group'         => 3
                 ];
 
                 $save = $UsersModel->save($newData);
-                //echo "<pre>"; print_r($newData); echo "</pre>";
                 if($save){
                     $msg['success'] = true;
                 } else {
@@ -222,9 +206,7 @@ class Users extends BaseController
                     'surname' => $this->request->getVar('surname'),
                     'name' => $this->request->getVar('name'),
                     'patronymic' => $this->request->getVar('patronymic'),
-                    'email' => $this->request->getVar('email'),
-                    'companies_id' => $this->request->getVar('companies_id'),
-                    'group' => $this->request->getVar('group')
+                    'email' => $this->request->getVar('email')
                 ];
 
                 if($password){

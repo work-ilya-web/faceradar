@@ -29,7 +29,9 @@
                     <img src="<?= base_url();?>/assets/img/icons/burger.svg" alt="">
                 </div>
                 <div class="header__last flex">
-                    <a href="#" class="header__profile admin--js"><?=$GLOBALS['user']['email']?></a>
+                    <a href="#" class="header__profile admin--js">
+                        <?=$GLOBALS['user']['name']?> <?=$GLOBALS['user']['surname']?> | <?=$GLOBALS['user']['permission']['name']?> | <?=$GLOBALS['user']['companies']['name']?>
+                    </a>
                     <a href="<?= base_url();?>/auth/logout" class="header__exit img-contain">
                         <img src="<?= base_url();?>/assets/img/icons/exit.svg" alt="">
                     </a>

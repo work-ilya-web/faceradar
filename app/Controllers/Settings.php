@@ -5,13 +5,11 @@ namespace App\Controllers;
 use App\Controllers\BaseController;
 use App\Models\UserModel;
 use App\Models\UserGroup;
-use App\Models\Admin\UsersAdminModel;
-use App\Models\AddressModel;
+use App\Models\CompaniesModel;
 use App\Libraries\AuthLib;
 
-class Profile extends BaseController
+class Settings extends BaseController
 {
-
 
     function __construct()
     {
@@ -22,37 +20,20 @@ class Profile extends BaseController
         }
         $userModel = new UserModel();
         $userGroupModel = new UserGroup();
+        $CompaniesModel = new CompaniesModel();
         $GLOBALS['user'] =  $userModel->GetUser($session->get('user')['id']);
         $GLOBALS['user']['permission'] =  $userGroupModel->GetUserPermission($GLOBALS['user']['group']);
-
+        $GLOBALS['user']['companies'] =  $CompaniesModel->find($GLOBALS['user']['companies_id']);
     }
 
-
-    public function main()
-    {
-
-
-
-        return view('profile/main_view', [
+    public function index()
+    {    
+        return view('profile/settings/'.$GLOBALS['user']['permission']['alias'].'/profile_view', [
             'title' => 'Личный кабинет'
         ]);
     }
 
-    public function profile()
-    {
 
-        $loginLib = new AuthLib();
-        $UserGroupModel = new UserGroup();
-        $session = session();
-
-
-
-        return view('profile/'.$GLOBALS['user']['permission']['alias'].'/profile_view', [
-            'title' => 'Личный кабинет'
-        ]);
-    }
-
-    /* Save info profile */
     public function profile_admin_save_ajax()
     {
 
@@ -89,7 +70,7 @@ class Profile extends BaseController
 
     }
 
-    /* Save password */
+
     public function edit_password_ajax()
     {
         $user = new UserModel();

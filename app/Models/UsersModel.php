@@ -6,7 +6,7 @@ use App\Models\UserGroup;
 class UsersModel extends Model
 {
     protected $table = 'users';
-    protected $allowedFields = ['name','surname','patronymic','email','phone','companies_id','password','group'];
+    protected $allowedFields = ['name','surname','patronymic','email','companies_id','password','group', 'api'];
     protected $beforeInsert = ['beforeInsert'];
     protected $beforeUpdate = ['beforeUpdate'];
 
@@ -33,7 +33,7 @@ class UsersModel extends Model
 
     public function FindUser($type, $input){
         if($type && $input){
-            $this->select('users.name as user_name, users.id as user_id, companies.name as company_name, companies.id as company_id, users_group.id as group_id, users_group.name as group_name, phone, create_at, surname, patronymic, email');
+            $this->select('users.name as user_name, users.id as user_id, companies.name as company_name, companies.id as company_id, users_group.id as group_id, users_group.name as group_name,  create_at, surname, patronymic, email');
             $this->join('users_group', 'users.group=users_group.id');
             $this->join('companies', 'users.companies_id=companies.id');
             $this->like('users.' . $type . '', $input);
@@ -45,7 +45,7 @@ class UsersModel extends Model
     public function sortUser($type, $input)
     {
         if($type && $input){
-            $this->select('users.name as user_name, users.id as user_id, users_group.id as group_id, users_group.name as group_name, phone, create_at, surname, patronymic, email');
+            $this->select('users.name as user_name, users.id as user_id, users_group.id as group_id, users_group.name as group_name,  create_at, surname, patronymic, email');
             $this->join('users_group', 'users.group=users_group.id');
             $this->orderBy('users.' . $type . '', $input);
             return $this;
@@ -57,9 +57,18 @@ class UsersModel extends Model
 
     public function getUsers()
     {
-        $this->select('users.name as user_name, users.id as user_id, companies.name as company_name, companies.id as company_id, users_group.id as group_id, users_group.name as group_name, phone, create_at, surname, patronymic, email');
+        $this->select('users.name as user_name, users.id as user_id, companies.name as company_name, companies.id as company_id, users_group.id as group_id, users_group.name as group_name,  create_at, surname, patronymic, email');
         $this->join('users_group', 'users.group=users_group.id');
         $this->join('companies', 'users.companies_id=companies.id');
+        return $this;
+    }
+
+    public function getReceptions()
+    {
+        $this->select('users.name as user_name, users.id as user_id, companies.name as company_name, companies.id as company_id, users_group.id as group_id, users_group.name as group_name,  create_at, surname, patronymic, email');
+        $this->join('users_group', 'users.group=users_group.id');
+        $this->join('companies', 'users.companies_id=companies.id');
+        $this->where('group', '3');
         return $this;
     }
 

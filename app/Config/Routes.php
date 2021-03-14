@@ -34,28 +34,29 @@ $routes->get('/', 'Home::index');
 $routes->match(['get', 'post'], '/register', 'Auth::register_view', ['filter' => 'noauth']);
 $routes->get('/login', 'Auth::login_view', ['filter' => 'noauth']);
 $routes->match(['get', 'post'], '/recovery', 'Auth::recovery_view', ['filter' => 'noauth']);
-$routes->get('profile', 'Profile::profile', ['filter' => 'auth']);
+$routes->get('settings', 'Settings::index', ['filter' => 'auth']);
+$routes->get('dashboard', 'Dashboard::index', ['filter' => 'auth']);
 //$routes->get('profile/cities', 'Profile::cities', ['filter' => 'auth']);
 
 
 
 
 // Users
-$routes->get('profile/users', 'Users::index', ['filter' => 'auth']);
-$routes->get('profile/users/(:any)', 'Users::item_view/$1', ['filter' => 'auth']);
-$routes->get('profile/users/(:any)/(:any)', 'Users::item_view/$1/$2', ['filter' => 'auth']);
+$routes->get('users', 'Users::index', ['filter' => 'auth']);
+$routes->get('users/(:any)', 'Users::item_view/$1', ['filter' => 'auth']);
+$routes->get('users/(:any)/(:any)', 'Users::item_view/$1/$2', ['filter' => 'auth']);
 
 
 // Users
-$routes->get('profile/companies', 'Companies::index', ['filter' => 'auth']);
-$routes->get('profile/companies/(:any)', 'Companies::item_view/$1', ['filter' => 'auth']);
-$routes->get('profile/companies/(:any)/(:any)', 'Companies::item_view/$1/$2', ['filter' => 'auth']);
+$routes->get('companies', 'Companies::index', ['filter' => 'auth']);
+$routes->get('companies/(:any)', 'Companies::item_view/$1', ['filter' => 'auth']);
+$routes->get('companies/(:any)/(:any)', 'Companies::item_view/$1/$2', ['filter' => 'auth']);
 
+// Receptions
+$routes->get('receptions', 'Receptions::index', ['filter' => 'auth']);
+$routes->get('receptions/(:any)', 'Receptions::item_view/$1', ['filter' => 'auth']);
+$routes->get('receptions/(:any)/(:any)', 'Receptions::item_view/$1/$2', ['filter' => 'auth']);
 
-// Client
-$routes->get('profile/address', 'Client\Address::index', ['filter' => 'auth']);
-$routes->get('profile/address/(:any)', 'Client\Address::item_view/$1', ['filter' => 'auth']);
-$routes->get('profile/address/(:any)/(:any)', 'Client\Address::item_view/$1/$2', ['filter' => 'auth']);
 
 /**
  * --------------------------------------------------------------------

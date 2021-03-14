@@ -88,7 +88,7 @@
         <div class="admin-modal__value"><?=$GLOBALS['user']['permission']['name']?></div>
         <!--div class="admin-modal__desc">Подписка до 01.01.2021</div-->
         <div class="admin-modal__button">
-            <a href="<?= base_url();?>/profile" class="admin-modal__btn btn btn_white">Профиль</a>
+            <a href="<?= base_url();?>/settings" class="admin-modal__btn btn btn_white">Профиль</a>
             <a href="<?= base_url();?>/auth/logout" class="admin-modal__btn btn">Выход</a>
         </div>
     </div>

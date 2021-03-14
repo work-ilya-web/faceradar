@@ -10,7 +10,7 @@
                     <span>Здравствуйте, <?=$GLOBALS['user']['name']?></span>
                 </div>
             </div>
-            <form action="<?= base_url();?>/profile/profile_admin_save_ajax" class="form profile_admin_save_ajax--js">
+            <form action="<?= base_url();?>/settings/profile_admin_save_ajax" class="form profile_admin_save_ajax--js">
                 <div class="form__row">
                     <div class="form__coll">
                         <div class="form__caption">Имя</div>
@@ -41,7 +41,7 @@
                     <span>Изменить пароль</span>
                 </div>
             </div>
-            <form action="<?= base_url();?>/profile/edit_password_ajax" class="form edit_password_ajax--js">
+            <form action="<?= base_url();?>/settings/edit_password_ajax" class="form edit_password_ajax--js">
                 <div class="form__row">
                     <div class="form__coll ">
                         <div class="form__caption">Новый пароль</div>

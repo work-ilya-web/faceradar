@@ -45,7 +45,7 @@ class Auth extends BaseController {
                     ->first();
 
                 $loginLib->setUserSession($user);
-                return redirect()->to(base_url().'/profile');
+                return redirect()->to(base_url().'/settings');
             }
         }
     }

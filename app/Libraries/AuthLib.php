@@ -3,7 +3,7 @@
 namespace App\Libraries;
 
 class AuthLib
-{   
+{
 
     public function setUserSession($user){
 
@@ -19,7 +19,7 @@ class AuthLib
             session()->set($data);
         } else {
             unset($_SESSION['user']);
-        }               
+        }
         return true;
     }
 
@@ -27,14 +27,30 @@ class AuthLib
         $session = session()->get();
         if(isset($session['user']['id'])){
             return true;
-        } else{ 
+        } else{
             return false;
-        }          
+        }
     }
 
     public function isAdmin(){
         $session = session()->get();
         if($session['user']['group'] === '1'){
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function isManager(){
+        $session = session()->get();
+        if($session['user']['group'] === '2'){
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public function isReception(){
+        $session = session()->get();
+        if($session['user']['group'] === '3'){
             return true;
         } else {
             return false;
@@ -50,4 +66,4 @@ class AuthLib
         return true;
     }
 
-} 
+}
