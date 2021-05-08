@@ -37,7 +37,7 @@ class Auth extends BaseController {
 
             if (!$this->validate($rules, $errors)){
                 $data_errors['validation'] = $validation->getErrors();
-                echo "<pre>"; print_r($_POST); echo "</pre>";
+                //echo "<pre>"; print_r($_POST); echo "</pre>";
                 return $this->response->setJSON($data_errors);
             } else {
 

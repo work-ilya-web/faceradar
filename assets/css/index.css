@@ -209,9 +209,21 @@ hr {
 
 .page-content {
     padding: 30px 50px;
+    position: relative;
     min-height: calc(100vh - 151px)
 }
-
+.loader {
+    left: 0;
+    top: 0;
+    position: absolute;
+    z-index: 99;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 .page-closed, .page-lock {
     position: absolute;
     transition: all .3s
@@ -370,9 +382,10 @@ hr {
 }
 
 .select {
-    position: relative;
-    z-index: 100;
-    cursor: pointer
+    cursor: pointer;
+    display: block;
+    width: 100%;
+    appearance: auto;
 }
 
 .select-title {
@@ -1031,10 +1044,17 @@ hr {
 .visits__coll-schedule {
     width: 100%;
     height: auto;
-    margin: 0 auto 25px;
-    max-width: 226px
 }
-
+.visits__item-caption {
+    position: absolute;
+    left: 0;
+    min-width: 200px;
+    display: block;
+    color: #000;
+    top: -35px;
+    font-size: 12px;
+    font-weight: bold;
+}
 .visits__caption {
     margin-bottom: 16px
 }
@@ -1044,8 +1064,12 @@ hr {
     align-items: center;
     font-weight: 500;
     font-size: 16px;
-    line-height: 24px;
-    color: #000
+    line-height: 47px;
+    color: #fff;
+    position: relative;
+    height: 45px;
+    margin-bottom: 40px;
+    margin-top: 20px;
 }
 
 .visits__item+.visits__item {
@@ -1343,7 +1367,16 @@ hr {
     padding: 0;
     margin: 50px 15px
 }
-
+.modal-loader {
+    position: absolute;
+    z-index: 99;
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 .modal .fancybox-close-small {
     display: none
 }
@@ -1470,10 +1503,7 @@ hr {
     margin-left: 10px
 }
 
-.profile__title:hover {
-    opacity: .5;
-    transition: all .3s
-}
+
 
 .profile__wrap {
     display: flex;
@@ -1490,7 +1520,11 @@ hr {
 .profile__img {
     width: 100%;
     height: 180px;
-    margin-bottom: 15px
+    margin-bottom: 15px;
+    overflow: hidden;
+}
+.profile__img img{
+    max-height: 100%;
 }
 
 .profile__img-big {
@@ -1825,4 +1859,54 @@ hr {
 .pagination li.active a{
     background: #333;
     color: #fff;
+}
+
+/************  copy--js       *************/
+.copy--js{
+    opacity: 0;
+    cursor: pointer;
+}
+td:hover .copy--js{
+    opacity: 1;
+}
+
+/************  .info   *************/
+.info-success {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: #009b6d;
+    height: 25px;
+    text-align: center;
+    width: 100%;
+    font-size: 12px;
+    color: #fff;
+    padding-top: 2px;
+    z-index: 99999;
+}
+.info-error {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: red;
+    z-index: 99999;
+    height: 25px;
+    text-align: center;
+    width: 100%;
+    font-size: 12px;
+    color: #fff;
+    padding-top: 2px;
+}
+
+/************  .profile--js   *************/
+.profile--js:hover{
+    background: #eee;
+}
+
+.fa-retweet:hover{
+    color: #333;
+    cursor: pointer;
+}
+.fa-retweet.active{
+    color: #4479ea;
 }

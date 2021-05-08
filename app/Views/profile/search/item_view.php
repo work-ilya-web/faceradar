@@ -9,18 +9,33 @@
         </div>
         <form action="<?= $action; ?>" class="form form--js">
             <div class="form__row">
-                <div class="form__coll">
-                    <div class="form__caption">Название</div>
-                    <input type="text" name="name" class="form__field field" value="<?=@$item['name']?>" >
-                </div>
-                <div class="form__coll">
-                    <div class="form__caption">Адрес</div>
-                    <input type="text" name="address" class="form__field field" value="<?=@$item['address']?>" >
-                </div>
-                <div class="form__coll">
-                    <div class="form__caption">ID камеры</div>
-                    <input type="text" name="camera_id" class="form__field field" value="<?=@$item['camera_id']?>" >
-                </div>
+                <?php foreach ($fields as $name => $input): ?>
+                    <?php if ($input['type']=='text'): ?>
+                        <div class="form__coll">
+                            <div class="form__caption"><?=$input['title']?></div>
+                            <input type="text" name="<?=$name?>" class="form__field field" value="<?=@$item[$name]?>" >
+                        </div>
+                    <?php endif; ?>
+                    <?php if ($input['type']=='email'): ?>
+                        <div class="form__coll">
+                            <div class="form__caption"><?=$input['title']?></div>
+                            <input type="email" name="<?=$name?>" class="form__field field" value="<?=@$item[$name]?>" >
+                        </div>
+                    <?php endif; ?>
+                    <?php if ($input['type']=='select'): ?>
+                        <div class="form__coll">
+                            <div class="form__caption"><?=$input['title']?></div>
+                            <select class="form__field field" name="<?=$name?>">
+                                <?php foreach ($input['options'] as $val => $text): ?>
+                                    <option value="<?=$val?>"><?=$text?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                    <?php endif; ?>
+                <?php endforeach; ?>
+
+
+
             </div>
             <div class="form__bottom">
                 <input type="hidden" name="back_url" value="<?= $back_url; ?>">

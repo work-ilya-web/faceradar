@@ -9,18 +9,37 @@
         </div>
         <form action="<?= $action; ?>" class="form form--js">
             <div class="form__row">
-                <div class="form__coll">
-                    <div class="form__caption">Название</div>
-                    <input type="text" name="name" class="form__field field" value="<?=@$item['name']?>" >
-                </div>
-                <div class="form__coll">
-                    <div class="form__caption">Адрес</div>
-                    <input type="text" name="address" class="form__field field" value="<?=@$item['address']?>" >
-                </div>
-                <div class="form__coll">
-                    <div class="form__caption">ID камеры</div>
-                    <input type="text" name="camera_id" class="form__field field" value="<?=@$item['camera_id']?>" >
-                </div>
+                <?php foreach ($fields as $name => $input): ?>
+                    <?php if ($input['type']=='text'): ?>
+                        <div class="form__coll">
+                            <div class="form__caption"><?=$input['title']?></div>
+                            <input type="text" name="<?=$name?>" class="form__field field" value="<?=@$item[$name]?>" >
+                        </div>
+                    <?php endif; ?>
+                    <?php if ($input['type']=='file'): ?>
+                        <div class="form__coll">
+                            <div class="form__caption"><?=$input['title']?></div>
+                            <input type="file" name="<?=$name?>" class="form__field field" value="<?=@$item[$name]?>"  <?=$input['accept']?>>
+                        </div>
+                    <?php endif; ?>
+                    <?php if ($input['type']=='select'): ?>
+                        <div class="form__coll">
+                            <div class="form__caption"><?=$input['title']?></div>
+                            <select class="form__field field" name="<?=$name?>">
+                                <?php foreach ($input['options'] as $val => $text): ?>
+                                    <option value="<?=$val?>"><?=$text?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        </div>
+                    <?php endif; ?>
+                    <div class="form__coll">
+                        <div class="form__caption">Клиент</div>
+                        <input type="text" class="form__field field" value="<?=@$client['name']?> <?=@$client['surname']?> ID: <?=@$client['id']?>" readonly  >
+                    </div>
+                <?php endforeach; ?>
+
+
+
             </div>
             <div class="form__bottom">
                 <input type="hidden" name="back_url" value="<?= $back_url; ?>">
@@ -40,26 +59,32 @@ $( document ).ready(function() {
         e.preventDefault();
 
         let form = $(this).closest('form'),
-            name = form.find('input[name="name"]'),
-            address = form.find('input[name="address"]');
+            file = form.find('input[name="url"]');
 
         form.find('input.error').removeClass('active');
         form.find('.main-window__notice').remove();
 
+        var formData = new FormData();
+        jQuery.each($('input[type="file"]')[0].files, function(i, file) {
+    		formData.append('file', file);
+    	});
+
+    
+
         $.ajax({
             url: form.attr('action'),
-            method: 'POST',
-            data: form.serialize(),
+            type: "POST",
+    		dataType : "json",
+    		cache: false,
+    		contentType: false,
+    		processData: false,
+    		data: formData,
             success: function (result) {
-
+                console.log(result);
                 if (result.validation){
-                    if (result.validation.name){
-                        name.addClass('error');
-                        name.after('<div class="main-window__notice">'+result.validation.name+'</div>');
-                    }
-                    if (result.validation.address){
-                        address.addClass('error');
-                        address.after('<div class="main-window__notice">'+result.validation.address+'</div>');
+                    if (result.validation.file){
+                        file.addClass('error');
+                        file.after('<div class="main-window__notice">'+result.validation.file+'</div>');
                     }
                 } else {
                     $.fancybox.open({loop:!1,src:"#complited-modal",baseClass:"bg-fancybox",touch:!1});

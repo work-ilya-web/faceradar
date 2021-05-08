@@ -35,7 +35,7 @@ class Companies extends BaseController
             'title' => 'Компании',
             'admin' => true,
             'menu_companies' =>true,
-            'items' => $model->paginate(10),
+            'items' => $model->where('hide !=', 1)->paginate(10),
             'pager' => $model->pager,
             'count' => $model->countAll(),
         ];
@@ -123,7 +123,8 @@ class Companies extends BaseController
             $validation =  \Config\Services::validation();
 
             $rules = [
-                'name' => 'required|min_length[3]|max_length[255]'
+                'name' => 'required|min_length[3]|max_length[255]',
+                'camera_id' => 'required|min_length[1]|max_length[11]',
             ];
 
             if (!$this->validate($rules)){
@@ -132,7 +133,8 @@ class Companies extends BaseController
             } else {
                 $newData = [
                     'name' => $this->request->getVar('name'),
-                    'address' => $this->request->getVar('address')
+                    'address' => $this->request->getVar('address'),
+                    'camera_id' => $this->request->getVar('camera_id'),
                 ];
                 $model->save($newData);
 
@@ -155,6 +157,7 @@ class Companies extends BaseController
 
             $rules = [
                 'name' => 'required|min_length[3]|max_length[50]',
+                'camera_id' => 'required|min_length[1]|max_length[11]',
             ];
 
             if (!$this->validate($rules)){
@@ -164,6 +167,7 @@ class Companies extends BaseController
                 $id = $this->request->getVar('id');
                 $newData = [
                     'name' => $this->request->getVar('name'),
+                    'camera_id' => $this->request->getVar('camera_id'),
                     'address' => $this->request->getVar('address')
                 ];
                 $model->update($id, $newData);

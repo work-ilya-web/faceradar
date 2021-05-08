@@ -52,10 +52,10 @@
                     <?php foreach ($items as $user) { ?>
                         <tr data-id="<?= $user['user_id']; ?>">
                             <td><span><?= $user['user_id']; ?></span></td>
-                            <td><?= $user['surname']; ?> <?= $user['user_name']; ?> <?= $user['patronymic']; ?></td>
+                            <td><?= $user['surname']; ?> <?= $user['user_name']; ?> <?= $user['patronymic']; ?> <i class="fa fa-copy copy--js" data-copy="<?= $user['surname']; ?> <?= $user['user_name']; ?> <?= $user['patronymic']; ?>" aria-hidden="true"></i></td>
                             <!--td><?= $user['phone']; ?></td-->
-                            <td><?= $user['email']; ?></td>
-                            <td><?= $user['company_name']?></td>
+                            <td><?= $user['email']; ?> <i class="fa fa-copy copy--js" data-copy="<?= $user['email']; ?>" aria-hidden="true"></i></td>
+                            <td><?= $user['company_name']?> <i class="fa fa-copy copy--js" data-copy="<?= $user['company_name']; ?>" aria-hidden="true"></i></td>
                             <td><?= $user['group_name']; ?></td>
                             <td>
                                 <div class="table-actions">

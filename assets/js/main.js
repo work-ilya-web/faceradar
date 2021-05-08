@@ -1,5 +1,242 @@
-$(document).ready(function () {
+function successShow(text) {
+    $("body").append('<div class="info-success">'+text+'</div>');
+    setTimeout(function(){
+        $('.info-success').fadeOut();
+    }, 1400);
+    setTimeout(function(){
+        $('.info-success').remove();
+    }, 1500);
+}
+function errorShow(text) {
+    $("body").append('<div class="info-error">'+text+'</div>');
+    setTimeout(function(){
+        $('.info-error').fadeOut();
+    }, 1400);
+    setTimeout(function(){
+        $('.info-error').remove();
+    }, 1500);
+}
+function copytext(el) {
+    var $tmp = $("<textarea>");
+    $("body").append($tmp);
+    $tmp.val($(el).data('copy')).select();
+    document.execCommand("copy");
+    $tmp.remove();
+    successShow('Скопировано в буфер');
+}
 
+function getStatistic(formattedDate = null, companies_id = null){
+
+    $.ajax({
+        url: '/dashboard/get_statistic',
+        method: 'POST',
+        data: {formattedDate:formattedDate, companies_id:companies_id},
+        success: function (result) {
+            if(result.success){
+                $("#VisitsGrafik").html('');
+                var visites = [];
+                $.each( result.visites, function( key, value ) {
+                    visites.push( value );
+                });
+                var VisitsGrafik = LightweightCharts.createChart(document.getElementById('VisitsGrafik'), {
+                    height: 300
+                });
+                var Visits = VisitsGrafik.addLineSeries({
+                    color: '#333333',
+                    lineStyle: 0,
+                    lineWidth: 2,
+                    crosshairMarkerVisible: true,
+                    crosshairMarkerRadius: 6,
+                    lineType: 2,
+                });
+                VisitsGrafik.applyOptions({
+                    handleScroll: true,
+                    handleScale: false,
+                });
+                Visits.setData(visites);
+                VisitsGrafik.timeScale().fitContent();
+
+
+                if (typeof result.genders[0] !== 'undefined') {
+                    $('.gender_0--js').css('width',result.genders[0].percent+'%' );
+                    $('.gender_0--js').find('span').text(result.genders[0].percent+'%' );
+                } else {
+                    $('.gender_0--js').css('width','0%' );
+                    $('.gender_0--js').find('span').text('0%' );
+                }
+                if (typeof result.genders[1] !== 'undefined') {
+                    $('.gender_1--js').css('width',result.genders[1].percent+'%' );
+                    $('.gender_1--js').find('span').text(result.genders[1].percent+'%' );
+                } else {
+                    $('.gender_1--js').css('width','0%' );
+                    $('.gender_1--js').find('span').text('0%' );
+                }
+                if (typeof result.genders[2] !== 'undefined') {
+                    $('.gender_2--js').css('width',result.genders[2].percent+'%' );
+                    $('.gender_2--js').find('span').text(result.genders[2].percent+'%' );
+                } else {
+                    $('.gender_2--js').css('width','0%' );
+                    $('.gender_2--js').find('span').text('0%' );
+                }
+                $('.attendance-new--js').css('width',result.attendance.new+'%' );
+                $('.attendance-new--js').find('span').text(result.attendance.new+'%' );
+                $('.attendance-old--js').css('width',result.attendance.old+'%' );
+                $('.attendance-old--js').find('span').text(result.attendance.old+'%' );
+            } else {
+                $("#VisitsGrafik").html(result.mess);
+                $('.gender_0--js').css('width','0%' );
+                $('.gender_0--js').find('span').text('0%' );
+                $('.gender_1--js').css('width','0%' );
+                $('.gender_1--js').find('span').text('0%' );
+                $('.gender_2--js').css('width','0%' );
+                $('.gender_2--js').find('span').text('0%' );
+
+                $('.attendance-new--js').css('width','0%' );
+                $('.attendance-new--js').find('span').text('0%' );
+                $('.attendance-old--js').css('width','0%' );
+                $('.attendance-old--js').find('span').text('0%' );
+            }
+            setTimeout(function(){
+                $('.loader').fadeOut();
+            }, 100)
+        }
+    });
+}
+
+$(document).ready(function () {
+    if($("#VisitsGrafik").length > 0){
+        if($('.companies-filter--js').length > 0){
+            var companies_id = $('.companies-filter--js').val();
+        } else {
+            var companies_id = null;
+        }
+        getStatistic(null, companies_id);
+    }
+
+    $('.datepicker-statistic').datepicker({
+        multipleDates: true,
+        onSelect: function(formattedDate, date, inst) {
+            if($('.companies-filter--js').length > 0){
+                var companies_id = $('.companies-filter--js').val();
+            } else {
+                var companies_id = null;
+            }
+            getStatistic(formattedDate, companies_id);
+       }
+    });
+    $('body').on('change', '.companies-filter--js', function(){
+        var date = $('.datepicker-statistic').val();
+        var companies_id = $(this).val();
+        if(date==''){date = null;}
+        getStatistic(date, companies_id);
+    });
+
+    $('.copy--js').on('click', function(){
+        copytext(this);
+    });
+
+    $(".profile-year-birth--js").mask("9999");
+    $(".profile-date-birth--js").mask("99.99.9999");
+
+    $('.input-date-birth--js .retweet--js').on('click', function(){
+        $(this).parent().parent().hide();
+        $('.input-year-birth--js').show();
+        $('.input-year-birth--js .retweet--js').addClass('active');
+    });
+    $('.input-year-birth--js .retweet--js').on('click', function(){
+        $(this).parent().parent().hide();
+        $('.input-date-birth--js ').show();
+    });
+
+
+
+
+
+    $('body').on('click','.profile--js', function(){
+        var el = $(this),
+            id = el.data('client-id'),
+            row =  el.closest('[data-id="'+id+'"]'),
+            idField = $('.profile-id--js'),
+            name = $('.profile-name--js'),
+            surname = $('.profile-surname--js'),
+            patronymic = $('.profile-patronymic--js'),
+            sex = $('.profile-sex--js'),
+            comment = $('.profile-comment--js'),
+            phone = $('.profile-phone--js'),
+            email = $('.profile-email--js'),
+            visited = $('.profile-visited--js'),
+            date_birth = $('.profile-date-birth--js'),
+            year_birth = $('.profile-year-birth--js'),
+            last_visited = $('.profile-last-visited--js'),
+            photo = $('.profile-photo--js'),
+            loader = $('.modal-loader'),
+            client = null,
+            url = '/clients/get_client';
+
+        loader.show();
+
+        if($('.guests--js').length > 0){
+            url = '/guests/get_client';
+        }
+
+        row.removeClass('row_new');
+
+        $.ajax({
+            url: url,
+            method: 'POST',
+            data: {id:id},
+            success: function (result) {
+                if (result.success){
+                    console.log(result);
+                    client = result.client;
+                    name.val(client.name);
+                    surname.val(client.surname);
+                    patronymic.val(client.patronymic);
+                    phone.val(client.phone);
+                    email.val(client.email);
+                    comment.val(client.comment);
+                    date_birth.val(client.date_birth);
+                    year_birth.val(client.year_birth);
+                    idField.val(client.id);
+                    photo.attr('src',client.photo.url);
+                    visited.text(client.total_visits);
+                    last_visited.text(client.update_at);
+                    sex.find('option[value="'+client.sex+'"]').prop('selected', true);
+                    setTimeout(function(){
+                        loader.fadeOut();
+                    }, 100)
+                } else {
+                    errorShow(result.mess);
+                }
+
+            }
+        });
+    });
+
+
+    $('.profile-form .send--js').click(function (e) {
+        e.preventDefault();
+
+        let form = $(this).closest('form');
+
+        form.find('input.error').removeClass('active');
+        form.find('.main-window__notice').remove();
+
+        $.ajax({
+            url: form.attr('action'),
+            method: 'POST',
+            data: form.serialize(),
+            success: function (result) {
+                if(result.success){
+                    successShow(result.mess);
+                } else {
+                    errorShow(result.mess);
+                }
+                console.log(result);
+            }
+        });
+
+    });
 
     $('.login-form .main-window__btn').click(function (e) {
         e.preventDefault();
@@ -19,12 +256,10 @@ $(document).ready(function () {
 
                 if (result.validation){
                     if (result.validation.phone){
-                        phone.addClass('error');
-                        phone.after('<div class="main-window__notice">'+result.validation.phone+'</div>');
+                        errorShow(result.validation.phone);
                     }
                     if (result.validation.password){
-                        password.addClass('error');
-                        password.after('<div class="main-window__notice">'+result.validation.password+'</div>');
+                        errorShow(result.validation.password);
                     }
                 } else {
                     form.submit();
@@ -128,7 +363,7 @@ $(document).ready(function () {
                     } else {
                         setTimeout(function(){
                             row.hide();
-                        }, 300);                        
+                        }, 300);
                     }
                 }
             });

@@ -16,8 +16,8 @@ if (file_exists(SYSTEMPATH . 'Config/Routes.php'))
  * --------------------------------------------------------------------
  */
 $routes->setDefaultNamespace('App\Controllers');
-$routes->setDefaultController('Home');
-$routes->setDefaultMethod('index2');
+$routes->setDefaultController('Auth');
+$routes->setDefaultMethod('login');
 $routes->setTranslateURIDashes(false);
 $routes->set404Override();
 $routes->setAutoRoute(true);
@@ -30,10 +30,11 @@ $routes->setAutoRoute(true);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan// directories.
-$routes->get('/', 'Home::index');
+$routes->get('/', 'Auth::login_view');
 $routes->match(['get', 'post'], '/register', 'Auth::register_view', ['filter' => 'noauth']);
 $routes->get('/login', 'Auth::login_view', ['filter' => 'noauth']);
 $routes->match(['get', 'post'], '/recovery', 'Auth::recovery_view', ['filter' => 'noauth']);
+$routes->match(['get', 'post'], '/photos/add/(:any)', 'Photos::add/$1', ['filter' => 'noauth']);
 $routes->get('settings', 'Settings::index', ['filter' => 'auth']);
 $routes->get('dashboard', 'Dashboard::index', ['filter' => 'auth']);
 //$routes->get('profile/cities', 'Profile::cities', ['filter' => 'auth']);
@@ -47,7 +48,7 @@ $routes->get('users/(:any)', 'Users::item_view/$1', ['filter' => 'auth']);
 $routes->get('users/(:any)/(:any)', 'Users::item_view/$1/$2', ['filter' => 'auth']);
 
 
-// Users
+// Companies
 $routes->get('companies', 'Companies::index', ['filter' => 'auth']);
 $routes->get('companies/(:any)', 'Companies::item_view/$1', ['filter' => 'auth']);
 $routes->get('companies/(:any)/(:any)', 'Companies::item_view/$1/$2', ['filter' => 'auth']);
@@ -57,6 +58,28 @@ $routes->get('receptions', 'Receptions::index', ['filter' => 'auth']);
 $routes->get('receptions/(:any)', 'Receptions::item_view/$1', ['filter' => 'auth']);
 $routes->get('receptions/(:any)/(:any)', 'Receptions::item_view/$1/$2', ['filter' => 'auth']);
 
+// Clients
+$routes->get('clients', 'Clients::index', ['filter' => 'auth']);
+$routes->get('clients/(:any)', 'Clients::item_view/$1', ['filter' => 'auth']);
+$routes->get('clients/(:any)/(:any)', 'Clients::item_view/$1/$2', ['filter' => 'auth']);
+$routes->get('clients/get_item_view/(:num)', 'Clients::get_item_view/$1', ['filter' => 'auth']);
+
+// Clients photos
+$routes->get('clients_photos/(:num)', 'Clients_photos::index/$1', ['filter' => 'auth']);
+$routes->get('clients_photos/(:num)/(:any)', 'Clients_photos::item_view/$1/$2', ['filter' => 'auth']);
+$routes->get('clients_photos/(:num)/(:any)/(:num)', 'Clients_photos::item_view/$1/$2/$3', ['filter' => 'auth']);
+
+//  Photos
+$routes->get('photos', 'Clients_photos::index', ['filter' => 'auth']);
+
+// Guests
+$routes->get('guests', 'Guests::index', ['filter' => 'auth']);
+$routes->get('guests/(:any)', 'Guests::item_view/$1', ['filter' => 'auth']);
+$routes->get('guests/(:any)/(:any)', 'Guests::item_view/$1/$2', ['filter' => 'auth']);
+$routes->get('guests/get_item_view/(:num)', 'Guests::get_item_view/$1', ['filter' => 'auth']);
+
+// Search
+$routes->add('search', 'Search::index', ['filter' => 'auth']);
 
 /**
  * --------------------------------------------------------------------

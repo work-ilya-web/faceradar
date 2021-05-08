@@ -1,5 +1,5 @@
 
-        <footer class="footer"></footer>
+        <!--footer class="footer"></footer-->
         </div>
     </div>
     <?= $this->include('profile/common/modals_view'); ?>
